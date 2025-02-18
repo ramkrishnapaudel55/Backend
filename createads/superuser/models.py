@@ -18,7 +18,8 @@ class AdminAdvertisement(models.Model):
     referral_code = models.CharField(max_length=50, blank=True, null=True)  # Optional
     guidelines = models.TextField(blank=True, null=True)  # Optional
     links = models.CharField(max_length=255, blank=True, null=True)  # Optional
-    thumbnail = models.ImageField(upload_to='Adminads/thumbnail', blank=True, null=True)  # Optional
+    # thumbnail = models.ImageField(upload_to='admin_ads/thumbnail/', null=True, blank=True)  # Optional
+    thumbnail = models.ImageField(upload_to='admin_ads/thumbnail/', null=True, blank=True)
     is_running = models.BooleanField(default=True)
     duration = models.DurationField(default=timedelta(days=1), blank=True, null=True)  # Optional
     priority = models.PositiveIntegerField(default=1, blank=True, null=True)  # Optional

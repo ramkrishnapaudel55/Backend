@@ -5,7 +5,7 @@ from login.models import User
 
 
 class AdminAdvertisementSerializer(serializers.ModelSerializer):
-    thumbnail = serializers.SerializerMethodField()
+    thumbnail = serializers.ImageField(required=False)
     class Meta:
         model = AdminAdvertisement
         fields = [
@@ -25,7 +25,7 @@ class AdminAdvertisementSerializer(serializers.ModelSerializer):
             'updated_at',
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
-        
+
     def get_thumbnail(self, obj):
         """
         ✅ Return the full URL for the thumbnail instead of just the file path.

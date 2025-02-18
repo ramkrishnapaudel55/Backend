@@ -39,6 +39,7 @@ from django.db import IntegrityError, transaction
 from rest_framework.exceptions import ValidationError
 import logging
 from django.db import transaction
+from rest_framework.parsers import MultiPartParser, FormParser
 
 logger = logging.getLogger(__name__)
 
@@ -74,6 +75,7 @@ class AdminAdvertisementListCreateView(generics.ListCreateAPIView):
     queryset = AdminAdvertisement.objects.all().order_by('priority')
     serializer_class = AdminAdvertisementSerializer
     permission_classes = [IsAdminUserCustom]
+    parser_classes = [MultiPartParser, FormParser]
 
     def get_serializer_context(self):
         """
@@ -83,7 +85,9 @@ class AdminAdvertisementListCreateView(generics.ListCreateAPIView):
         return {'request': self.request}
 
     def perform_create(self, serializer):
-        serializer.save()
+        request = self.request
+        print("FILES: ", request.FILES)
+        serializer.save(thumbnail=self.request.FILES.get('thumbnail'))
 
 
 class AdminAdvertisementDetailView(generics.RetrieveUpdateDestroyAPIView):
