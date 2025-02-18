@@ -75,6 +75,13 @@ class AdminAdvertisementListCreateView(generics.ListCreateAPIView):
     serializer_class = AdminAdvertisementSerializer
     permission_classes = [IsAdminUserCustom]
 
+    def get_serializer_context(self):
+        """
+        Ensure that the serializer gets the request context,
+        which is needed for building absolute URLs.
+        """
+        return {'request': self.request}
+
     def perform_create(self, serializer):
         serializer.save()
 

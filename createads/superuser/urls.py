@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import (
     AdminAdvertisementListCreateView,
     AdminAdvertisementDetailView,
@@ -68,3 +70,6 @@ urlpatterns = [
     path('admin_user_create/create/', AdminUserCreateView.as_view(), name='admin-user-create'),
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

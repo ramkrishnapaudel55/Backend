@@ -4,6 +4,8 @@ from django.db import models
 from django.utils import timezone
 from datetime import timedelta
 from django.core.exceptions import ValidationError
+import random
+import string
 
 
 class AdminAdvertisement(models.Model):
@@ -16,7 +18,7 @@ class AdminAdvertisement(models.Model):
     referral_code = models.CharField(max_length=50, blank=True, null=True)  # Optional
     guidelines = models.TextField(blank=True, null=True)  # Optional
     links = models.CharField(max_length=255, blank=True, null=True)  # Optional
-    thumbnail = models.ImageField(upload_to='media/Adminads/thumbnail', blank=True, null=True)  # Optional
+    thumbnail = models.ImageField(upload_to='Adminads/thumbnail', blank=True, null=True)  # Optional
     is_running = models.BooleanField(default=True)
     duration = models.DurationField(default=timedelta(days=1), blank=True, null=True)  # Optional
     priority = models.PositiveIntegerField(default=1, blank=True, null=True)  # Optional

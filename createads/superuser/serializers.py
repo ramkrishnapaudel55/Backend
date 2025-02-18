@@ -5,6 +5,7 @@ from login.models import User
 
 
 class AdminAdvertisementSerializer(serializers.ModelSerializer):
+    thumbnail = serializers.SerializerMethodField()
     class Meta:
         model = AdminAdvertisement
         fields = [
@@ -24,6 +25,15 @@ class AdminAdvertisementSerializer(serializers.ModelSerializer):
             'updated_at',
         ]
         read_only_fields = ['id', 'created_at', 'updated_at']
+        
+    def get_thumbnail(self, obj):
+        """
+        ✅ Return the full URL for the thumbnail instead of just the file path.
+        """
+        request = self.context.get('request')  # Get the request object
+        if obj.thumbnail:
+            return request.build_absolute_uri(obj.thumbnail.url) if request else obj.thumbnail.url
+        return None  # Return None if no thumbnail exists
 
     def validate_duration(self, value):
         """
